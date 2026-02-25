@@ -1,8 +1,8 @@
 // ==========================================================
-// SUPER TRUNFO - LOCALIDADES FICTÍCIAS
+// SUPER TRUNFO - PAISES FICTICIOS (VERSAO INTERMEDIARIA)
 // Linguagem: C++
 // Autor: SeuNome
-// Descrição: Comparação de duas cartas utilizando um atributo
+// Descricao: Menu interativo com switch e comparacao de cartas
 // ==========================================================
 
 #include <iostream>
@@ -17,131 +17,217 @@ using namespace std;
 
 struct Carta
 {
-    string estado;
+    string pais;
     string codigo;
-    string cidade;
     int populacao;
     float area;
     float pib;
     int pontosTuristicos;
 
     float densidade;
-    float pibPerCapita;
 };
 
 // ==========================================================
-// FUNÇÃO PARA CALCULAR ATRIBUTOS DERIVADOS
+// CALCULAR DENSIDADE DEMOGRAFICA
 // ==========================================================
 
-void calcularDados(Carta &c)
+void calcularDensidade(Carta &c)
 {
     c.densidade = c.populacao / c.area;
-    c.pibPerCapita = c.pib / c.populacao;
 }
 
 // ==========================================================
-// FUNÇÃO PARA EXIBIR CARTA
+// MOSTRAR MENU
 // ==========================================================
 
-void exibirCarta(Carta c)
+void mostrarMenu()
 {
-    cout << "\n=============================\n";
-    cout << "Estado: " << c.estado << endl;
-    cout << "Codigo: " << c.codigo << endl;
-    cout << "Cidade: " << c.cidade << endl;
-    cout << "Populacao: " << c.populacao << endl;
-    cout << "Area: " << c.area << " km²" << endl;
-    cout << "PIB: " << c.pib << endl;
-    cout << "Pontos Turisticos: " << c.pontosTuristicos << endl;
-    cout << fixed << setprecision(2);
-    cout << "Densidade Populacional: " << c.densidade << endl;
-    cout << "PIB per Capita: " << c.pibPerCapita << endl;
+    cout << "\n====== SUPER TRUNFO ======\n";
+    cout << "Escolha o atributo para comparacao:\n";
+    cout << "1 - Populacao\n";
+    cout << "2 - Area\n";
+    cout << "3 - PIB\n";
+    cout << "4 - Pontos Turisticos\n";
+    cout << "5 - Densidade Demografica\n";
+    cout << "Opcao: ";
 }
 
 // ==========================================================
-// FUNÇÃO PRINCIPAL
+// FUNCAO PRINCIPAL
 // ==========================================================
 
 int main()
 {
 
     // ======================================================
-    // CARTAS FICTÍCIAS
+    // CARTAS FIXAS (PAISES FICTICIOS)
     // ======================================================
 
-    Carta carta1;
-    carta1.estado = "Reino Solaris";
-    carta1.codigo = "RS01";
-    carta1.cidade = "Lumina";
-    carta1.populacao = 500000;
-    carta1.area = 250.5;
-    carta1.pib = 900000000;
-    carta1.pontosTuristicos = 15;
+    Carta carta1 = {
+        "Zetherland",
+        "ZT01",
+        700000,
+        350000.0,
+        900000000.0,
+        25};
 
-    Carta carta2;
-    carta2.estado = "Império Nebulus";
-    carta2.codigo = "IN02";
-    carta2.cidade = "Nebur";
-    carta2.populacao = 800000;
-    carta2.area = 500.8;
-    carta2.pib = 1200000000;
-    carta2.pontosTuristicos = 10;
+    Carta carta2 = {
+        "Arkadia",
+        "AR02",
+        500000,
+        200000.0,
+        600000000.0,
+        30};
 
-    // ======================================================
-    // CALCULANDO DADOS
-    // ======================================================
+    // calcular densidade
 
-    calcularDados(carta1);
-    calcularDados(carta2);
+    calcularDensidade(carta1);
+    calcularDensidade(carta2);
 
-    // ======================================================
-    // EXIBINDO CARTAS
-    // ======================================================
+    int opcao;
 
-    cout << "===== CARTA 1 =====";
-    exibirCarta(carta1);
+    mostrarMenu();
+    cin >> opcao;
 
-    cout << "\n===== CARTA 2 =====";
-    exibirCarta(carta2);
+    cout << fixed << setprecision(2);
 
     // ======================================================
-    // ESCOLHA DO ATRIBUTO PARA COMPARAÇÃO
-    // ALTERE AQUI SE QUISER COMPARAR OUTRO
+    // SWITCH MENU
     // ======================================================
 
-    string atributo = "PIB per capita";
-
-    cout << "\n=====================================\n";
-    cout << "Comparacao de cartas (Atributo: " << atributo << ")\n\n";
-
-    cout << "Carta 1 - " << carta1.cidade << ": "
-         << carta1.pibPerCapita << endl;
-
-    cout << "Carta 2 - " << carta2.cidade << ": "
-         << carta2.pibPerCapita << endl;
-
-    // ======================================================
-    // LOGICA DE COMPARACAO
-    // ======================================================
-
-    if (carta1.pibPerCapita > carta2.pibPerCapita)
+    switch (opcao)
     {
 
-        cout << "\nResultado: Carta 1 ("
-             << carta1.cidade
-             << ") venceu!\n";
-    }
-    else if (carta2.pibPerCapita > carta1.pibPerCapita)
-    {
+    case 1:
 
-        cout << "\nResultado: Carta 2 ("
-             << carta2.cidade
-             << ") venceu!\n";
-    }
-    else
-    {
+        cout << "\nComparacao por Populacao\n";
 
-        cout << "\nResultado: Empate!\n";
+        cout << carta1.pais << ": " << carta1.populacao << endl;
+        cout << carta2.pais << ": " << carta2.populacao << endl;
+
+        if (carta1.populacao > carta2.populacao)
+        {
+
+            cout << "Vencedor: " << carta1.pais << endl;
+        }
+        else if (carta2.populacao > carta1.populacao)
+        {
+
+            cout << "Vencedor: " << carta2.pais << endl;
+        }
+        else
+        {
+
+            cout << "Empate!\n";
+        }
+
+        break;
+
+    case 2:
+
+        cout << "\nComparacao por Area\n";
+
+        cout << carta1.pais << ": " << carta1.area << endl;
+        cout << carta2.pais << ": " << carta2.area << endl;
+
+        if (carta1.area > carta2.area)
+        {
+
+            cout << "Vencedor: " << carta1.pais << endl;
+        }
+        else if (carta2.area > carta1.area)
+        {
+
+            cout << "Vencedor: " << carta2.pais << endl;
+        }
+        else
+        {
+
+            cout << "Empate!\n";
+        }
+
+        break;
+
+    case 3:
+
+        cout << "\nComparacao por PIB\n";
+
+        cout << carta1.pais << ": " << carta1.pib << endl;
+        cout << carta2.pais << ": " << carta2.pib << endl;
+
+        if (carta1.pib > carta2.pib)
+        {
+
+            cout << "Vencedor: " << carta1.pais << endl;
+        }
+        else if (carta2.pib > carta1.pib)
+        {
+
+            cout << "Vencedor: " << carta2.pais << endl;
+        }
+        else
+        {
+
+            cout << "Empate!\n";
+        }
+
+        break;
+
+    case 4:
+
+        cout << "\nComparacao por Pontos Turisticos\n";
+
+        cout << carta1.pais << ": " << carta1.pontosTuristicos << endl;
+        cout << carta2.pais << ": " << carta2.pontosTuristicos << endl;
+
+        if (carta1.pontosTuristicos > carta2.pontosTuristicos)
+        {
+
+            cout << "Vencedor: " << carta1.pais << endl;
+        }
+        else if (carta2.pontosTuristicos > carta1.pontosTuristicos)
+        {
+
+            cout << "Vencedor: " << carta2.pais << endl;
+        }
+        else
+        {
+
+            cout << "Empate!\n";
+        }
+
+        break;
+
+    case 5:
+
+        cout << "\nComparacao por Densidade Demografica\n";
+
+        cout << carta1.pais << ": " << carta1.densidade << endl;
+        cout << carta2.pais << ": " << carta2.densidade << endl;
+
+        // REGRA INVERTIDA
+
+        if (carta1.densidade < carta2.densidade)
+        {
+
+            cout << "Vencedor: " << carta1.pais << endl;
+        }
+        else if (carta2.densidade < carta1.densidade)
+        {
+
+            cout << "Vencedor: " << carta2.pais << endl;
+        }
+        else
+        {
+
+            cout << "Empate!\n";
+        }
+
+        break;
+
+    default:
+
+        cout << "\nOpcao invalida!\n";
     }
 
     return 0;
