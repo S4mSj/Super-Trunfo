@@ -1,73 +1,72 @@
-// ==========================================================
-// SUPER TRUNFO - PAISES (VERSAO FINAL AVANCADA)
-// Linguagem: C++
-// Autor: SeuNome
-// ==========================================================
+// =======================================================
+// SUPER TRUNFO - PROJETO FINAL COMPLETO
+// Linguagem: C
+// =======================================================
 
-#include <iostream>
-#include <iomanip>
-#include <string>
+#include <stdio.h>
+#include <string.h>
 
-using namespace std;
-
-// ==========================================================
-// ESTRUTURA
-// ==========================================================
+// =======================================================
+// STRUCT
+// =======================================================
 
 struct Carta
 {
-    string pais;
+    char estado;
+    char codigo[4];
+    char cidade[50];
     int populacao;
     float area;
     float pib;
     int pontos;
+
     float densidade;
 };
 
-// ==========================================================
+// =======================================================
 // CALCULAR DENSIDADE
-// ==========================================================
+// =======================================================
 
-void calcularDensidade(Carta &c)
+void calcularDensidade(struct Carta *c)
 {
-    c.densidade = c.populacao / c.area;
+    c->densidade = c->populacao / c->area;
 }
 
-// ==========================================================
-// MOSTRAR MENU DINAMICO
-// ==========================================================
+// =======================================================
+// MENU DINAMICO
+// =======================================================
 
-void mostrarMenu(int atributoBloqueado)
+void menu(int bloqueado)
 {
 
-    cout << "\nEscolha um atributo:\n";
+    printf("\nEscolha um atributo:\n");
 
-    if (atributoBloqueado != 1)
-        cout << "1 - Populacao\n";
+    if (bloqueado != 1)
+        printf("1 - Populacao\n");
 
-    if (atributoBloqueado != 2)
-        cout << "2 - Area\n";
+    if (bloqueado != 2)
+        printf("2 - Area\n");
 
-    if (atributoBloqueado != 3)
-        cout << "3 - PIB\n";
+    if (bloqueado != 3)
+        printf("3 - PIB\n");
 
-    if (atributoBloqueado != 4)
-        cout << "4 - Pontos Turisticos\n";
+    if (bloqueado != 4)
+        printf("4 - Pontos Turisticos\n");
 
-    if (atributoBloqueado != 5)
-        cout << "5 - Densidade Demografica\n";
+    if (bloqueado != 5)
+        printf("5 - Densidade\n");
 
-    cout << "Opcao: ";
+    printf("Opcao: ");
 }
 
-// ==========================================================
-// OBTER VALOR ATRIBUTO
-// ==========================================================
+// =======================================================
+// OBTER VALOR
+// =======================================================
 
-float obterValor(Carta c, int atributo)
+float valor(struct Carta c, int op)
 {
 
-    switch (atributo)
+    switch (op)
     {
 
     case 1:
@@ -84,150 +83,146 @@ float obterValor(Carta c, int atributo)
 
     case 5:
         return c.densidade;
-
-    default:
-        return 0;
     }
+
+    return 0;
 }
 
-// ==========================================================
-// OBTER NOME
-// ==========================================================
+// =======================================================
+// NOME ATRIBUTO
+// =======================================================
 
-string nomeAtributo(int atributo)
-{
+char nome[5][30] = {
+    "",
+    "Populacao",
+    "Area",
+    "PIB",
+    "Pontos Turisticos",
+    "Densidade"};
 
-    switch (atributo)
-    {
-
-    case 1:
-        return "Populacao";
-
-    case 2:
-        return "Area";
-
-    case 3:
-        return "PIB";
-
-    case 4:
-        return "Pontos Turisticos";
-
-    case 5:
-        return "Densidade Demografica";
-
-    default:
-        return "Erro";
-    }
-}
-
-// ==========================================================
+// =======================================================
 // MAIN
-// ==========================================================
+// =======================================================
 
 int main()
 {
 
-    cout << fixed << setprecision(2);
+    struct Carta c1, c2;
 
-    // ======================================================
-    // CARTAS
-    // ======================================================
+    // ===================================================
+    // CADASTRO
+    // ===================================================
 
-    Carta carta1 = {"Zetherland", 800000, 400000, 900000000, 20};
-    Carta carta2 = {"Arkadia", 600000, 300000, 700000000, 30};
+    printf("=== CARTA 1 ===\n");
 
-    calcularDensidade(carta1);
-    calcularDensidade(carta2);
+    printf("Estado: ");
+    scanf(" %c", &c1.estado);
 
-    int attr1, attr2;
+    printf("Codigo: ");
+    scanf("%s", c1.codigo);
 
-    // ======================================================
-    // ESCOLHA ATRIBUTO 1
-    // ======================================================
+    printf("Cidade: ");
+    scanf(" %[^\n]", c1.cidade);
 
-    mostrarMenu(0);
-    cin >> attr1;
+    printf("Populacao: ");
+    scanf("%d", &c1.populacao);
 
-    // ======================================================
-    // ESCOLHA ATRIBUTO 2
-    // ======================================================
+    printf("Area: ");
+    scanf("%f", &c1.area);
 
-    mostrarMenu(attr1);
-    cin >> attr2;
+    printf("PIB: ");
+    scanf("%f", &c1.pib);
 
-    if (attr1 == attr2)
+    printf("Pontos Turisticos: ");
+    scanf("%d", &c1.pontos);
+
+    calcularDensidade(&c1);
+
+    printf("\n=== CARTA 2 ===\n");
+
+    printf("Estado: ");
+    scanf(" %c", &c2.estado);
+
+    printf("Codigo: ");
+    scanf("%s", c2.codigo);
+
+    printf("Cidade: ");
+    scanf(" %[^\n]", c2.cidade);
+
+    printf("Populacao: ");
+    scanf("%d", &c2.populacao);
+
+    printf("Area: ");
+    scanf("%f", &c2.area);
+
+    printf("PIB: ");
+    scanf("%f", &c2.pib);
+
+    printf("Pontos Turisticos: ");
+    scanf("%d", &c2.pontos);
+
+    calcularDensidade(&c2);
+
+    // ===================================================
+    // ESCOLHER ATRIBUTOS
+    // ===================================================
+
+    int a1, a2;
+
+    menu(0);
+    scanf("%d", &a1);
+
+    menu(a1);
+    scanf("%d", &a2);
+
+    if (a1 == a2)
     {
 
-        cout << "\nErro: atributos iguais!\n";
+        printf("Erro: atributos iguais!\n");
         return 0;
     }
 
-    // ======================================================
-    // OBTER VALORES
-    // ======================================================
+    // ===================================================
+    // VALORES
+    // ===================================================
 
-    float v1_attr1 = obterValor(carta1, attr1);
-    float v2_attr1 = obterValor(carta2, attr1);
+    float v11 = valor(c1, a1);
+    float v12 = valor(c1, a2);
 
-    float v1_attr2 = obterValor(carta1, attr2);
-    float v2_attr2 = obterValor(carta2, attr2);
+    float v21 = valor(c2, a1);
+    float v22 = valor(c2, a2);
 
-    // ======================================================
-    // REGRA DENSIDADE
-    // ======================================================
+    // regra densidade
 
-    float soma1 = 0;
-    float soma2 = 0;
+    float s1 = (a1 == 5 ? -v11 : v11) + (a2 == 5 ? -v12 : v12);
+    float s2 = (a1 == 5 ? -v21 : v21) + (a2 == 5 ? -v22 : v22);
 
-    soma1 += (attr1 == 5) ? -v1_attr1 : v1_attr1;
-    soma2 += (attr1 == 5) ? -v2_attr1 : v2_attr1;
+    // soma real
 
-    soma1 += (attr2 == 5) ? -v1_attr2 : v1_attr2;
-    soma2 += (attr2 == 5) ? -v2_attr2 : v2_attr2;
+    float soma1 = v11 + v12;
+    float soma2 = v21 + v22;
 
-    // ======================================================
-    // EXIBIR RESULTADO
-    // ======================================================
+    // ===================================================
+    // RESULTADO
+    // ===================================================
 
-    cout << "\n===== RESULTADO =====\n";
+    printf("\n===== RESULTADO =====\n");
 
-    cout << "\nPais 1: " << carta1.pais << endl;
-    cout << "Pais 2: " << carta2.pais << endl;
+    printf("\n%s:\n", c1.cidade);
+    printf("%s: %.2f\n", nome[a1], v11);
+    printf("%s: %.2f\n", nome[a2], v12);
+    printf("Soma: %.2f\n", soma1);
 
-    cout << "\nAtributo 1: " << nomeAtributo(attr1) << endl;
+    printf("\n%s:\n", c2.cidade);
+    printf("%s: %.2f\n", nome[a1], v21);
+    printf("%s: %.2f\n", nome[a2], v22);
+    printf("Soma: %.2f\n", soma2);
 
-    cout << carta1.pais << ": " << v1_attr1 << endl;
-    cout << carta2.pais << ": " << v2_attr1 << endl;
+    // operador ternario
 
-    cout << "\nAtributo 2: " << nomeAtributo(attr2) << endl;
-
-    cout << carta1.pais << ": " << v1_attr2 << endl;
-    cout << carta2.pais << ": " << v2_attr2 << endl;
-
-    // ======================================================
-    // SOMA REAL
-    // ======================================================
-
-    float somaReal1 = v1_attr1 + v1_attr2;
-    float somaReal2 = v2_attr1 + v2_attr2;
-
-    cout << "\nSoma " << carta1.pais << ": " << somaReal1 << endl;
-    cout << "Soma " << carta2.pais << ": " << somaReal2 << endl;
-
-    // ======================================================
-    // VENCEDOR COM OPERADOR TERNARIO
-    // ======================================================
-
-    cout << "\n";
-
-    if (soma1 > soma2)
-        cout << "Vencedor: " << carta1.pais;
-    else if (soma2 > soma1)
-        cout << "Vencedor: " << carta2.pais;
-    else
-        cout << "Empate!";
-
-    cout << endl;
+    printf("\nVencedor: %s\n",
+           (s1 > s2) ? c1.cidade : (s2 > s1) ? c2.cidade
+                                             : "Empate");
 
     return 0;
 }
